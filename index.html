@@ -42,6 +42,14 @@
       </button>
     </div>
 
+    <button class="listen-btn" id="btn-listen">
+      <span class="ear">🎤</span>
+      <span>
+        <b>대기 모드</b>
+        <em>울음이 들리면 자동으로 켜집니다</em>
+      </span>
+    </button>
+
     <div class="rows">
       <div class="row">
         <span class="row-label">종료 타이머</span>
@@ -59,6 +67,49 @@
     </p>
   </section>
 
+  <!-- ===== 대기 모드 (울음 감지) ===== -->
+  <section id="listen" class="screen" hidden>
+    <header class="top">
+      <div class="brand">
+        <h1>대기 모드</h1>
+        <p id="listen-state">마이크 준비 중…</p>
+      </div>
+      <button class="icon-btn" id="btn-listen-stop">중지</button>
+    </header>
+
+    <div class="listen-main">
+      <div class="gauge">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <circle class="g-track" cx="60" cy="60" r="52"></circle>
+          <circle class="g-fill" id="gauge-fill" cx="60" cy="60" r="52"></circle>
+        </svg>
+        <div class="gauge-mid">
+          <div class="g-level" id="g-level">—</div>
+          <div class="g-unit">dB</div>
+        </div>
+      </div>
+      <canvas id="spectrum" width="600" height="110"></canvas>
+      <div class="metrics">
+        <div><span>기준선</span><b id="m-base">—</b></div>
+        <div><span>중역 비중</span><b id="m-ratio">—</b></div>
+        <div><span>f0</span><b id="m-f0">—</b></div>
+      </div>
+    </div>
+
+    <div class="rows">
+      <div class="row">
+        <span class="row-label">민감도</span>
+        <div class="chips" id="sens"></div>
+      </div>
+    </div>
+
+    <p class="hint">
+      폰을 아이에게서 <b>2m 이상</b> 떨어뜨리고, 화면이 보이는 쪽으로 두세요.
+      iOS는 화면이 꺼지면 마이크를 끊기 때문에 대기 모드에서는 화면을 켜둡니다.
+      8초 뒤 화면이 어두워지지만 계속 듣고 있습니다.
+    </p>
+  </section>
+
   <!-- ===== 재생 중 ===== -->
   <section id="player" class="screen" hidden>
     <div class="orb-wrap">
@@ -70,6 +121,7 @@
     </div>
 
     <div class="status">
+      <div class="auto-badge" id="auto-badge" hidden>🎤 울음 감지로 자동 시작</div>
       <div class="phase" id="phase-label">유도 중</div>
       <div class="elapsed" id="elapsed">0:00</div>
       <div class="bar"><div class="bar-fill" id="bar-fill"></div></div>
@@ -78,6 +130,7 @@
 
     <div class="player-actions">
       <button class="big-btn primary" id="btn-slept">잠들었어요 😴</button>
+      <button class="big-btn ghost" id="btn-false" hidden>오탐이었어요 · 다시 대기</button>
       <button class="big-btn ghost" id="btn-stop">정지</button>
     </div>
   </section>
@@ -85,7 +138,7 @@
 </main>
 
 <!-- 화면을 어둡게 덮는 레이어 (불빛으로 아이를 깨우지 않도록) -->
-<div id="dim" hidden><span>탭하면 밝아집니다</span></div>
+<div id="dim" hidden><span id="dim-text">탭하면 밝아집니다</span></div>
 
 <!-- 시트 -->
 <div id="sheet-backdrop" hidden></div>
@@ -104,6 +157,7 @@
 
 <script src="js/presets.js"></script>
 <script src="js/synth.js"></script>
+<script src="js/listen.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

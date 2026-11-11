@@ -90,6 +90,62 @@ body{
 }
 .play-label{font-size:15px;letter-spacing:.02em;color:var(--muted)}
 
+/* ---- 대기 모드 진입 버튼 ---- */
+.listen-btn{
+  appearance:none;font-family:inherit;cursor:pointer;width:100%;
+  display:flex;align-items:center;gap:13px;text-align:left;
+  padding:14px 16px;margin:0 0 20px;border-radius:16px;
+  border:1px solid rgba(90,208,196,.32);
+  background:linear-gradient(180deg,rgba(90,208,196,.12),rgba(90,208,196,.04));
+  color:var(--fg);
+}
+.listen-btn:active{transform:scale(.99)}
+.listen-btn .ear{font-size:20px}
+.listen-btn b{display:block;font-size:15px;font-weight:600}
+.listen-btn em{display:block;font-style:normal;font-size:12.5px;color:var(--muted);margin-top:3px}
+
+/* ---- 대기 모드 화면 ---- */
+.listen-main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}
+.gauge{position:relative;width:188px;height:188px}
+.gauge svg{width:100%;height:100%;transform:rotate(-90deg)}
+.gauge circle{fill:none;stroke-width:5;stroke-linecap:round}
+.g-track{stroke:rgba(255,255,255,.07)}
+.g-fill{
+  stroke:var(--accent2);
+  stroke-dasharray:326.7; /* 2πr, r=52 */
+  stroke-dashoffset:326.7;
+  transition:stroke-dashoffset .08s linear,stroke .15s;
+}
+.gauge.hot .g-fill{stroke:var(--warm)}
+.gauge-mid{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.g-level{font-size:38px;font-weight:300;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.g-unit{font-size:12px;color:var(--muted);margin-top:2px}
+
+#spectrum{width:100%;height:110px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+
+.metrics{display:flex;gap:10px;width:100%}
+.metrics div{
+  flex:1;text-align:center;padding:10px 4px;border-radius:12px;
+  background:var(--card);border:1px solid var(--line);
+}
+.metrics span{display:block;font-size:11px;color:var(--muted)}
+.metrics b{display:block;margin-top:4px;font-size:14px;font-weight:600;font-variant-numeric:tabular-nums}
+
+.auto-badge{
+  display:inline-block;margin-bottom:10px;padding:5px 12px;border-radius:999px;
+  font-size:12px;color:var(--accent2);
+  background:rgba(90,208,196,.14);border:1px solid rgba(90,208,196,.4);
+}
+
+/* 대기 모드에서 암전됐을 때 듣고 있다는 표시 */
+#dim.listening span{color:#2a4b47}
+#dim.listening::before{
+  content:"";width:9px;height:9px;border-radius:50%;background:var(--accent2);
+  position:absolute;top:calc(50% - 26px);left:calc(50% - 4.5px);
+  animation:pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:.15;transform:scale(.8)}50%{opacity:.8;transform:scale(1.15)}}
+
 /* ---- 설정 행 ---- */
 .rows{display:flex;flex-direction:column;gap:14px;margin-top:4px}
 .row{display:flex;align-items:center;justify-content:space-between;gap:12px}

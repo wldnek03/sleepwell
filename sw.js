@@ -1,12 +1,13 @@
 /* SleepWell 서비스워커 — 앱 셸만 캐시한다.
    오디오는 매번 기기에서 생성되므로 캐시 대상이 아니다. */
-var CACHE = 'sleepwell-v1';
+var CACHE = 'sleepwell-v2';
 var SHELL = [
   './',
   './index.html',
   './css/app.css',
   './js/presets.js',
   './js/synth.js',
+  './js/listen.js',
   './js/app.js',
   './manifest.webmanifest',
   './icons/icon-192.png',
